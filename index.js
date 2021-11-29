@@ -26,7 +26,7 @@ module.exports = class AWSWebsocketProvider extends WebsocketProvider {
       'accessKeyId' in this.clientConfig.credentials &&
       'secretAccessKey' in this.clientConfig.credentials &&
       this.clientConfig.credentials;
-    const credentials = (creds && new AWS.Credentials(creds)) || new AWS.EnvironmentCredentials('AWS');
+    const credentials = (creds && new AWS.Credentials(creds)) || new AWS.EnvironmentCredentials('AWS') || new AWS.EC2MetadataCredentials();
     const host = new URL(this.url).hostname;
     const endpoint = new AWS.Endpoint(`https://${host}/`);
     const req = new AWS.HttpRequest(endpoint, region);
